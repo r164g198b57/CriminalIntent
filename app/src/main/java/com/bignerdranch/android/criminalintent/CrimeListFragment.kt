@@ -25,7 +25,7 @@ private const val TAG = "CrimeListFragment"
 class CrimeListFragment : Fragment() {
 
     private lateinit var crimeRecyclerView: RecyclerView
-    private var adapter: CrimeAdapter = CrimeAdapter(emptyList())
+    private var adapter: CrimeAdapter? = CrimeAdapter(emptyList())
     private val crimeListViewModel: CrimeListViewModel by lazy {
         ViewModelProviders.of(this).get(CrimeListViewModel::class.java)
     }
@@ -55,14 +55,12 @@ class CrimeListFragment : Fragment() {
         crimeRecyclerView =
             view.findViewById(R.id.crime_recycler_view) as RecyclerView
         crimeRecyclerView.layoutManager = LinearLayoutManager(context)
-        crimeRecyclerView.adapter = adapter
 
         return view
     }
 
     override fun onStart() {
         super.onStart()
-
         crimeListViewModel.crimeListLiveData.observe(
             viewLifecycleOwner,
             Observer { crimes ->
@@ -84,6 +82,7 @@ class CrimeListFragment : Fragment() {
         inflater.inflate(R.menu.fragment_crime_list, menu)
     }
 
+
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.new_crime -> {
@@ -92,13 +91,12 @@ class CrimeListFragment : Fragment() {
                 callbacks?.onCrimeSelected(crime.id)
                 true
             }
-
             else -> return super.onOptionsItemSelected(item)
         }
     }
 
     private fun updateUI(crimes: List<Crime>) {
-        adapter.let {
+        adapter?.let {
             it.crimes = crimes
         } ?: run {
             adapter = CrimeAdapter(crimes)
