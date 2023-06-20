@@ -1,0 +1,17 @@
+<resources>
+    <string name="app_name">Злачынны намер</string>
+    <string name="crime_title_hint">Увядзіце назву злачынства.</string>
+    <string name="crime_title_label">Назва</string>
+    <string name="crime_details_label">Дэталі</string>
+    <string name="crime_solved_label">Вырашана</string>
+    <string name="new_crime">Новае злачынства</string>
+    <string name="crime_suspect_text">Абярыце Падазронага</string>
+    <string name="crime_report_text">Адправіць справаздачу аб злачынстве</string>
+    <string name="crime_report">%1$s! Злачынства раскрылі на %2$s. %3$s, і %4$s</string>
+    <string name="crime_report_solved">Справа раскрытая</string>
+    <string name="crime_report_unsolved">Справа не раскрытая</string>
+    <string name="crime_report_no_suspect">падазраванага няма.</string>
+    <string name="crime_report_suspect">падазроны %s.</string>
+    <string name="crime_report_subject">Справаздача аб злачынстве</string>
+    <string name="send_report">Адправіць паведамленне аб злачынстве праз</string>
+</resources>
