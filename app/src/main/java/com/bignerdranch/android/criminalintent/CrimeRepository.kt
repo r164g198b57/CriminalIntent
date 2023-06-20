@@ -5,6 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.room.Room
 import com.bignerdranch.android.criminalintent.database.CrimeDatabase
 import com.bignerdranch.android.criminalintent.database.migration_1_2
+import java.io.File
 import java.util.UUID
 import java.util.concurrent.Executors
 
@@ -12,7 +13,7 @@ private const val DATABASE_NAME = "crime-database"
 
 class CrimeRepository private constructor(context: Context) {
 
-    private val database: CrimeDatabase = Room.databaseBuilder(
+    private val database : CrimeDatabase = Room.databaseBuilder(
         context.applicationContext,
         CrimeDatabase::class.java,
         DATABASE_NAME
@@ -20,6 +21,7 @@ class CrimeRepository private constructor(context: Context) {
         .build()
     private val crimeDao = database.crimeDao()
     private val executor = Executors.newSingleThreadExecutor()
+    private val filesDir = context.applicationContext.filesDir
 
     fun getCrimes(): LiveData<List<Crime>> = crimeDao.getCrimes()
 
@@ -37,6 +39,8 @@ class CrimeRepository private constructor(context: Context) {
         }
     }
 
+    fun getPhotoFile(crime: Crime): File = File(filesDir, crime.photoFileName)
+
     companion object {
         private var INSTANCE: CrimeRepository? = null
 
@@ -47,7 +51,8 @@ class CrimeRepository private constructor(context: Context) {
         }
 
         fun get(): CrimeRepository {
-            return INSTANCE ?: throw IllegalStateException("CrimeRepository must be initialized")
+            return INSTANCE ?:
+            throw IllegalStateException("CrimeRepository must be initialized")
         }
     }
 }
